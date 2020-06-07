@@ -1,0 +1,108 @@
+// BSc Creative Computing
+// Unit: Sound and Image Processing
+// Sketch 4: Macrame using Lindenmayer System 
+
+// Description: This project is based on the understanding of the Konch Snowflake by continuously adding two ellipses for each initial circle until it reaches the designated parameter. I want to create a circular shape, mimicing the form of a macrame, hence increasing the angle and using sin. 
+
+// Instruction: Click anywhere on the screen while the macrame is still processing (or before its completed) to change the colour of the macrame.
+
+
+let initial;
+let macrame = [];
+let r, g, b;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  initial = new Particle(height/2, 0);
+  
+   // Pick colors randomly
+  r = random(255);
+  g = random(255);
+  b = random(255);
+}
+
+function draw() {
+  background(0);
+  translate(width/2, height/2);
+  rotate(PI/6);
+
+  let count = 0;
+  while (!initial.finished() && !initial.intersects(macrame)) {
+    initial.update();
+    count++;
+  }
+
+  // macrame complete when no particle moves/add more ellipse
+  if (count == 0) {
+    noLoop();
+    console.log('macrame completed');
+  }
+
+  macrame.push(initial);
+  initial = new Particle(height/2, 0);
+
+  for (let i = 0; i < 20; i++) {
+    rotate(sin(30)/3);
+    initial.show();
+    for (let a of macrame) {
+      a.show();
+    }
+
+    push();
+    scale(1, -1);
+    initial.show();
+    for (let a of macrame) {
+      a.show();
+    }
+    pop();
+  }
+}
+
+class Particle {
+
+  constructor(radius, angle) {
+    this.pos = p5.Vector.fromAngle(angle);
+    this.pos.mult(radius);
+    this.r = 5;
+  }
+
+  update() {
+    this.pos.x -= 1;
+    this.pos.y += random(-2, 2);
+
+    let angle = this.pos.heading();
+    angle = constrain(angle, 0, PI/10);
+    let position_magnitude = this.pos.mag();
+    this.pos = p5.Vector.fromAngle(angle);
+    this.pos.setMag(position_magnitude);
+  }
+
+  show() {
+    fill(r, g, b, 127);
+    stroke(255, 150);
+    ellipse(this.pos.x, this.pos.y, this.r * 2);
+  }
+
+  intersects(macrame) {
+    let final_macrame = false;
+    for (let s of macrame) {
+      let d = dist(s.pos.x, s.pos.y, this.pos.x, this.pos.y); 
+      if (d < this.r * 2) {
+        final_macrame = true;
+        break;
+      }
+    }
+    return final_macrame;
+  }
+
+  finished() {
+    return (this.pos.x < 1);
+  }
+}
+
+function mousePressed() {
+// change the color of the macrame
+    r = random(255);
+    g = random(255);
+    b = random(255);
+}
