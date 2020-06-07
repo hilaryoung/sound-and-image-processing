@@ -1,0 +1,65 @@
+// BSc Creative Computing
+// Unit: Sound and Image Processing
+// Sketch 5: Sound Synthesis
+
+// Description: This project is based on the "bones" or starter code provided in class. The aim is to try and mimic the sound of water droplet using the Sine Wave Oscillator provided by P5js. I made the motion of oscillation going vertically down to give an illusion of drizzel and futher enhance the refrence of water drops. 
+
+let oscillation = [];
+let oscillation_number = 10;
+let envelopes = [];
+let freq = 100;
+let positions = Array(oscillation_number).fill(null);
+
+var img1;
+var img2;
+
+function preload() {
+
+  img1 = loadImage("top.PNG");
+  img2 = loadImage("bottom.PNG");
+
+}
+
+function setup() {
+  createCanvas(700, 800);
+  noStroke();
+  
+  osc_new = new p5.SinOsc();
+
+  let frequency = freq;
+
+  for (let i = 0; i < oscillation_number; i++) {
+    let osc_new = new p5.SinOsc();
+    osc_new.freq(frequency);
+    oscillation[i] = osc_new;
+    frequency *= 5 / 4;
+
+    let envelope = new p5.Envelope();
+    envelope.setADSR(0, 0.7, 0.01, 0.4);
+    envelope.setRange(0.1, 0);
+    envelopes[i] = envelope;
+  }
+}
+
+function draw() {
+  background(30);
+  translate(width / 2, height / 2);
+  image(img2, 0 - (width / 2), 0 - (height / 2), width, height);
+  for (let i = 0; i < oscillation_number; i++) {
+    let theta = radians((oscillation_number - i + 3) * frameCount * 0.25);
+    let x = cos(theta) * tan(i + 6) * 10;
+    let y = tan(theta) * (i + 5) * 10;
+    if (positions[i]) {
+      if (y > 0 && positions[i].y < 0) {
+        oscillation[i].start();
+        envelopes[i].play(oscillation[i]);
+      }
+      positions[i].x = x
+      positions[i].y = y;
+    } else {
+      positions[i] = createVector(x, y);
+    }
+    ellipse(x, y, 10, 10);
+  }
+  image(img1, 0 - (width / 2), 0 - (height / 2), width, height);
+}
