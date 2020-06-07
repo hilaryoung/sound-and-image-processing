@@ -1,0 +1,97 @@
+// BSc Creative Computing
+// Unit: Sound and Image Processing
+// Sketch 3: Convolution Scanner
+// This assignment follows the instruction and understanding of Kernal image processing. Specifically it uses the sharpen operation to make the matrix for this image.
+
+// Instruction: Use the mouse to see sections of the image sharpened. 
+
+// Image from: http://artasiapacific.com/Blog/JeongMeeYoon
+
+
+var frame;
+var img;
+var conv_width = 170;
+// Convolution array used to sharpen image
+var matrix = [ [ -1, -1, -1 ] , 
+               [ -1,  9, -1 ] ,
+               [ -1, -1, -1 ] ];
+
+function preload() {
+  img = loadImage("image1.jpg");
+  frame = loadImage("frame.png");
+}
+
+function setup() {
+  createCanvas(img.width, img.height);
+  pixelDensity(1);
+}
+
+function draw() {
+  
+  image(img, 0, 0);
+  
+  // Size of convolution  
+  var start_x = constrain(mouseX- conv_width/2,0,img.width); 
+  var end_x = constrain(mouseX +  conv_width/2,0,img.width);
+  
+  var start_y = constrain(mouseY- conv_width/2,0,img.height);
+  var end_y = constrain(mouseY +  conv_width/2,0,img.height);
+  var matrix_size = 3;
+  
+  
+  loadPixels();
+  img.loadPixels();
+  
+  // Begin looping pixels
+  for (var x = start_x ; x < end_x ; x++ ) {
+    for (var y = start_y ; y < end_y ; y++ ) {
+      // Each pixel would pass through convolution() function which will return a new color
+      var result = convolution(x ,y , matrix, matrix_size, img); 
+      var placement = (x + y * img.width) * 4;
+      
+      pixels[ placement    ] = result[0];
+      pixels[ placement + 1] = result[1];
+      pixels[ placement + 2] = result[2];
+      pixels[ placement + 3] = 255;
+      
+    }
+  }
+  updatePixels();
+
+  noStroke(0);
+  noFill();
+  rect(start_x , start_y , conv_width , conv_width );
+  image(frame,start_x - 40 , start_y-40 , 250 ,250 );
+}
+
+function convolution(x, y, matrix, matrix_size, img) {
+  var r_total = 0.0;
+  var g_total = 0.0;
+  var b_total = 0.0;
+  var offset = floor(matrix_size / 2);
+  
+  // Loop matrix
+  for (var i = 0; i < matrix_size; i++ ) {
+    for (var j = 0; j < matrix_size; j++ ) {
+
+      var placement_x = x + i-offset;
+      var placement_y = y + j-offset;
+      var placement = (placement_x + img.width * placement_y) * 4;
+      
+      placement = constrain( placement , 0, img.pixels.length-1);
+      
+      // Add all the pixels that are beside each other, multiplied by the values in the convolution matrix.
+      r_total += img.pixels[ placement    ] * matrix[i][j];
+      g_total += img.pixels[ placement + 1] * matrix[i][j];
+      b_total += img.pixels[ placement + 2] * matrix[i][j];
+      //console.log(img.pixels[ placement    ], matrix[i][j]);
+    }
+  }
+  
+  r_total = constrain(r_total,0,255);
+  g_total = constrain(g_total,0,255);
+  b_total = constrain(b_total,0,255);
+  
+  // Return an array with the three color values
+  return [r_total,g_total,b_total]; 
+}
