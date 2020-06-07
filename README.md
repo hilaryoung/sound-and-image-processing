@@ -7,19 +7,20 @@ Unit: Sound and Image Processing
 ### Project
  5 small projects documenting the progress and outcomes for the student’s project. 
  
- This will document the design and development process. (50%)
+ This will document the design and development process.
  
  
  #### Project 1: Pixels
- Link: https://editor.p5js.org/wen2x/sketches/ngFwHpOAT
+ Link: editor.p5js.org/wen2x/sketches/ngFwHpOAT
  
  #### Project 2: Game of Life Simulation 
- Link: https://editor.p5js.org/wen2x/sketches/9QxnKQoq7
+ Link: editor.p5js.org/wen2x/sketches/9QxnKQoq7
  
  #### Project 3: Convolution
- Link: https://editor.p5js.org/wen2x/sketches/2MAX9rPwT
+ Link: editor.p5js.org/wen2x/sketches/2MAX9rPwT
  
  #### Project 4: Lindenmayer System
- Link: https://editor.p5js.org/wen2x/sketches/arTfWp8lS
+ Link: editor.p5js.org/wen2x/sketches/arTfWp8lS
  
- #### Project 5:
+ #### Project 5: Sound Synthesis
+ Link: editor.p5js.org/wen2x/sketches/hIfL8bKbO
