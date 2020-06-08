@@ -1,9 +1,9 @@
 // BSc Creative Computing
 // Unit: Sound and Image Processing
-// Sketch 3: Convolution Scanner
-// This assignment follows the instruction and understanding of Kernal image processing. Specifically it uses the sharpen operation to make the matrix for this image.
+// Sketch 3: Convolution Edge Detection Scanner
+// This assignment follows the instruction and understanding of Kernal image processing. The matrix is used to process the image will highlight the edges or outline the photograph.
 
-// Instruction: Use the mouse to see sections of the image sharpened. 
+// Instruction: Use the mouse to see sections of the processed image.
 
 // Image from: http://artasiapacific.com/Blog/JeongMeeYoon
 
@@ -13,7 +13,7 @@ var img;
 var conv_width = 170;
 // Convolution array used to sharpen image
 var matrix = [ [ -1, -1, -1 ] , 
-               [ -1,  9, -1 ] ,
+               [ -1,  8, -1 ] ,
                [ -1, -1, -1 ] ];
 
 function preload() {
