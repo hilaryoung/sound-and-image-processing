@@ -23,4 +23,5 @@ Unit: Sound and Image Processing
  Link: editor.p5js.org/wen2x/sketches/arTfWp8lS
  
  #### Project 5: Sound Synthesis
- Link: editor.p5js.org/wen2x/sketches/hIfL8bKbO
+ Link:  https://editor.p5js.org/wen2x/sketches/hIfL8bKbO
+ 
