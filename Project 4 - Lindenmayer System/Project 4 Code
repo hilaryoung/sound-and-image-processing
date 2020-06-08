@@ -2,7 +2,7 @@
 // Unit: Sound and Image Processing
 // Sketch 4: Macrame using Lindenmayer System 
 
-// Description: This project is based on the understanding of the Konch Snowflake by continuously adding two ellipses for each initial circle until it reaches the designated parameter. I want to create a circular shape, mimicing the form of a macrame, hence increasing the angle and using sin. 
+// Description: This project is based on the understanding of the Konch Snowflake by continuously adding two ellipses for each initial circle until it reaches the designated parameter. I want to create a circular shape, mimicking the form of a macramé, hence increasing the angle and using sin.
 
 // Instruction: Click anywhere on the screen while the macrame is still processing (or before its completed) to change the colour of the macrame.
 
